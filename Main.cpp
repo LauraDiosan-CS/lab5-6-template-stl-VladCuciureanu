@@ -3,8 +3,9 @@
 
 using namespace std;
 
-void main()
+int main()
 {
 	TestDomain();
 	TestRepo();
+	return 0;
 }

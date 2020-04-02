@@ -39,6 +39,6 @@ void TestRepo()
 	assert(repo.dim() == 2);
 	assert(repo.findElem(c3) == false);
 	assert(strcmp(c2.getName(), "Eclair") == 0);
-	//repo.updateElem(c2, 2, "Lavacake", "blabla", 30);
+	repo.updateElem(c2, Cake(2, "Lavacake", "stuff", 30));
 	assert(strcmp(repo.getAll()[1].getName(), "Eclair") != 0);
 }
