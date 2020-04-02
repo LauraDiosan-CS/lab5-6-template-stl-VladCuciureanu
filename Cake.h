@@ -14,6 +14,7 @@ private:
 public:
 	Cake();
 	Cake(int cakeId, const char* name, const char* ingredients, double price);
+	Cake(const Cake& c);
 	~Cake();
 	int getId();
 	char* getName();

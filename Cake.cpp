@@ -17,6 +17,16 @@ Cake::Cake(int cakeId, const char* name, const char* ingredients, double price)
 	this->price = price;
 }
 
+Cake::Cake(const Cake& c)
+{
+	this->cakeId = c.cakeId;
+	this->price = c.price;
+	this->name = new char[strlen(c.name) + 1];
+	strcpy_s(this->name, strlen(c.name) + 1, c.name);
+	this->ingredients = new char[strlen(c.ingredients) + 1];
+	strcpy_s(this->ingredients, strlen(c.ingredients) + 1, c.ingredients);
+}
+
 Cake::~Cake()
 {
 	if (this->name) {

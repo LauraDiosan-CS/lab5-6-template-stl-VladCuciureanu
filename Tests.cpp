@@ -25,7 +25,7 @@ void TestRepo()
 	Cake c2(2, "Eclair", "ceva bun", 12);
 	Cake c3(2, "Velvet", "red stuff", 13);
 	Cake c4(2, "Cupcake", "cup-sized stuff", 14);
-	RepoSTL repo;
+	RepoSTLTemplate<Cake> repo;
 	repo.addElem(c1);
 	repo.addElem(c2);
 	repo.addElem(c3);
@@ -39,6 +39,6 @@ void TestRepo()
 	assert(repo.dim() == 2);
 	assert(repo.findElem(c3) == false);
 	assert(strcmp(c2.getName(), "Eclair") == 0);
-	repo.updateElem(c2, 2, "Lavacake", "blabla", 30);
-	assert(strcmp(c2.getName(), "Eclair") != 0);
+	//repo.updateElem(c2, 2, "Lavacake", "blabla", 30);
+	assert(strcmp(repo.getAll()[1].getName(), "Eclair") != 0);
 }
