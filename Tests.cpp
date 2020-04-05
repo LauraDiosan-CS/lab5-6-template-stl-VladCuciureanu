@@ -28,6 +28,7 @@ void TestRepo()
 	Cake c4(4, "Cupcake", "cup-sized stuff", 14);
 	RepoSTLTemplate<Cake> repo;
 	repo.addElem(c1);
+	repo.addElem(c1);
 	repo.addElem(c2);
 	repo.addElem(c3);
 	assert(repo.dim() == 3);

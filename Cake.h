@@ -12,34 +12,61 @@ private:
 	char* ingredients;
 	double price;
 public:
-	//Blank constructor
+	/*
+	Blank constructor
+	*/
 	Cake();
-	//Parameterized constructor
+	
+	/*
+	Parameterized constructor
+	In: entity ID
+	In: cake name
+	In: cake ingredients
+	In: cake price
+	*/
 	Cake(int cakeId, const char* name, const char* ingredients, double price);
-	//Copy constructor
+	
+	/*
+	Copy constructor
+	In: object to be copied.
+	*/
 	Cake(const Cake& c);
-	//Destructor
+
+	/*
+	Destructor
+	*/
 	~Cake();
+	
 	//Id getter
 	unsigned int getId();
+	
 	//Name getter
 	char* getName();
+	
 	//Ingredients getter
 	char* getIngredients();
+	
 	//Price getter
 	double getPrice();
+	
 	//Id setter
 	void setId(int cakeId);
+	
 	//Name setter
 	void setName(const char* name);
+	
 	//Ingredients setter
 	void setIngredients(const char* ingredients);
+	
 	//Price setter
 	void setPrice(double price);
+	
 	//Copy operator
 	Cake& operator=(const Cake& s);
+	
 	//Equals operator
 	bool operator==(const Cake& s);
+	
 	//Serializer
 	friend std::ostream& operator<<(std::ostream& os, const Cake& s);
 };
