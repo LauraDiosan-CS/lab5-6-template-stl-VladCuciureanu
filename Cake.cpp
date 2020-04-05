@@ -1,15 +1,13 @@
 #include "Cake.h"
 
-Cake::Cake() {
-	this->cakeId = 0;
+Cake::Cake() : Entity() {
 	this->name = NULL;
 	this->ingredients = NULL;
 	this->price = 0;
 }
 
-Cake::Cake(int cakeId, const char* name, const char* ingredients, double price)
+Cake::Cake(int cakeId, const char* name, const char* ingredients, double price) : Entity(cakeId)
 {
-	this->cakeId = cakeId;
 	this->name = new char[std::strlen(name)+1];
 	strcpy_s(this->name, strlen(name)+1, name);
 	this->ingredients = new char[std::strlen(ingredients) + 1];
@@ -17,9 +15,8 @@ Cake::Cake(int cakeId, const char* name, const char* ingredients, double price)
 	this->price = price;
 }
 
-Cake::Cake(const Cake& c)
+Cake::Cake(const Cake& c) : Entity(c)
 {
-	this->cakeId = c.cakeId;
 	this->price = c.price;
 	this->name = new char[strlen(c.name) + 1];
 	strcpy_s(this->name, strlen(c.name) + 1, c.name);
@@ -39,9 +36,9 @@ Cake::~Cake()
 	}
 }
 
-int Cake::getId()
+unsigned int Cake::getId()
 {
-	return this->cakeId;
+	return this->entityId;
 }
 
 char* Cake::getName()
@@ -61,7 +58,7 @@ double Cake::getPrice()
 
 void Cake::setId(int cakeId)
 {
-	this->cakeId = cakeId;
+	this->entityId = cakeId;
 }
 
 void Cake::setName(const char* name)
@@ -88,7 +85,7 @@ void Cake::setPrice(double price)
 }
 
 Cake& Cake::operator=(const Cake& s) {
-	this->setId(s.cakeId);
+	Entity::operator=(s);
 	this->setName(s.name);
 	this->setIngredients(s.ingredients);
 	this->setPrice(s.price);
@@ -96,7 +93,7 @@ Cake& Cake::operator=(const Cake& s) {
 }
 
 bool Cake:: operator==(const Cake& s) {
-	if (this->cakeId != s.cakeId)
+	if (this->entityId != s.entityId)
 		return false;
 	if (strcmp(this->name, s.name) != 0)
 		return false;
@@ -109,6 +106,6 @@ bool Cake:: operator==(const Cake& s) {
 
 std::ostream& operator<<(std::ostream& os, const Cake& s)
 {
-	os << s.cakeId << " " << s.name << " " << s.ingredients << " " << s.price;
+	os << s.entityId << " " << s.name << " " << s.ingredients << " " << s.price;
 	return os;
 }

@@ -1,5 +1,6 @@
 #include "Tests.h"
 #include <assert.h>
+#include <iostream>
 
 void TestDomain()
 {
@@ -23,8 +24,8 @@ void TestRepo()
 {
 	Cake c1(1, "Strudel", "oua, mere, habar n-am", 11);
 	Cake c2(2, "Eclair", "ceva bun", 12);
-	Cake c3(2, "Velvet", "red stuff", 13);
-	Cake c4(2, "Cupcake", "cup-sized stuff", 14);
+	Cake c3(3, "Velvet", "red stuff", 13);
+	Cake c4(4, "Cupcake", "cup-sized stuff", 14);
 	RepoSTLTemplate<Cake> repo;
 	repo.addElem(c1);
 	repo.addElem(c2);
@@ -33,12 +34,28 @@ void TestRepo()
 	assert(repo.getAll()[0] == c1);
 	assert(repo.getAll()[1] == c2);
 	assert(repo.getAll()[2] == c3);
-	assert(repo.findElem(c1) == true);
-	assert(repo.findElem(c4) == false);
-	repo.delElem(c3);
+	assert(repo.findElemById(1) != repo.getEnd());
+	assert(repo.findElemById(4) == repo.getEnd());
+	repo.delElem(3);
 	assert(repo.dim() == 2);
-	assert(repo.findElem(c3) == false);
+	assert(repo.findElemById(3) == repo.getEnd());
 	assert(strcmp(c2.getName(), "Eclair") == 0);
-	repo.updateElem(c2, Cake(2, "Lavacake", "stuff", 30));
+	repo.updateElem(2, Cake(2, "Lavacake", "stuff", 30));
 	assert(strcmp(repo.getAll()[1].getName(), "Eclair") != 0);
 }
+
+/*void TestService()
+{
+	RepoSTLTemplate<Cake> repo;
+	Service service(repo);
+	Cake c1(1, "Strudel", "oua, mere, habar n-am", 11);
+	Cake c2(2, "Eclair", "ceva bun", 12);
+	Cake c3(3, "Velvet", "red stuff", 13);
+	Cake c4(4, "Cupcake", "cup-sized stuff", 14);
+	service.addCake(1, "Strudel", "oua, mere, habar n-am", 11);
+	service.addCake(2, "Eclair", "ceva bun", 12);
+	service.addCake(3, "Velvet", "red stuff", 13);
+	service.addCake(4, "Cupcake", "cup-sized stuff", 14);
+	service.addCake(4, "Cupcake", "cup-sized stuff", 14);
+	assert(service.getAll().size() == 4);
+}*/

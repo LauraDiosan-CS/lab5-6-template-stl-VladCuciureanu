@@ -3,11 +3,11 @@
 #include <string.h>
 #include <ostream>
 #include <iostream>
+#include "Entity.h"
 
-class Cake
+class Cake : public Entity
 {
 private:
-	int cakeId;
 	char* name;
 	char* ingredients;
 	double price;
@@ -21,7 +21,7 @@ public:
 	//Destructor
 	~Cake();
 	//Id getter
-	int getId();
+	unsigned int getId();
 	//Name getter
 	char* getName();
 	//Ingredients getter

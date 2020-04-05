@@ -7,5 +7,6 @@ int main()
 {
 	TestDomain();
 	TestRepo();
+	//TestService();
 	return 0;
 }

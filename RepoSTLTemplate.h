@@ -1,70 +1,63 @@
 #pragma once
 #include <vector>
+#include <iostream>
+#include <algorithm>
+#include "Entity.h"
 
 template <class T>
 class RepoSTLTemplate
 {
 private:
-	std::vector <T> elem;
-
+	std::vector<T> elem;
 public:
+	RepoSTLTemplate(){} // Blank constructor
+	~RepoSTLTemplate(){} // Destructor
 
-	//Blank constructor
-	RepoSTLTemplate()
-	{}
+	// Create
 
-	//Adds given elem to vector
-	void addElem(T p)
-	{
-		elem.push_back(p);
-	}
+	void addElem(T t) { elem.push_back(t); } // Adds given elem.
+	
+	// Read
 
-	//Deletes given elem from vector
-	void delElem(T s)
-	{
+	typename std::vector<T>::iterator findElemById(const int entityId) {
 		typename std::vector<T>::iterator it;
-		it = find(elem.begin(), elem.end(), s);
-		if (it != elem.end()) elem.erase(it);
+		it = find_if(this->elem.begin(), this->elem.end(), [entityId](T t) { return ((Entity) t).getId() == entityId; });
+		return it;
 	}
 
-	//Searches for given elem in vector.
-	bool findElem(T p)
-	{
-		typename std::vector<T>::iterator it;
-		it = find(elem.begin(), elem.end(), p);
-		if (it != elem.end()) return true;
-		return false;
-	}
-
-	//Returns size of vector.
-	int dim()
-	{
-		return elem.size();
-	}
-
-	//Returns item from given position in vector.
-	T getItemFromPos(int i)
-	{
-		return elem[i];
-	}
-
-	//Returns all items from vector.
 	std::vector<T> getAll()
 	{
-		return elem;
+		return this->elem;
 	}
 
-	//Destructor
-	~RepoSTLTemplate()
-	{}
+	// Update
 
-	//Updates given elem with new elem.
-	void updateElem(T& original, const T newValues)
+	void updateElem(unsigned int id, T update)
 	{
-		for (int i = 0; i < elem.size(); i++)
-		{
-			if (elem[i] == original)
-				elem[i] = newValues;
-		}
+		typename std::vector<T>::iterator it;
+		it = findElemById(id);
+		*it = update;
 	}
+
+	// Delete
+
+	void delElem(unsigned int id)
+	{
+		typename std::vector<T>::iterator it;
+		it = findElemById(id);
+		this->elem.erase(it);
+	}
+
+	// Misc
+
+	typename std::vector<T>::iterator getEnd()
+	{
+		return this->elem.end();
+	}
+
+	unsigned int dim()
+	{
+		return this->elem.size();
+	}
+
 };
