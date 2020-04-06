@@ -66,6 +66,9 @@ public:
 	
 	//Equals operator
 	bool operator==(const Cake& s);
+
+	//Not equals operator
+	bool operator!=(const Cake& s);
 	
 	//Serializer
 	friend std::ostream& operator<<(std::ostream& os, const Cake& s);

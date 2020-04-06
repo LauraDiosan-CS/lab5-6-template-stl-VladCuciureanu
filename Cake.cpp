@@ -104,6 +104,10 @@ bool Cake:: operator==(const Cake& s) {
 	return true;
 }
 
+bool Cake:: operator!=(const Cake& s) {
+	return !(Cake::operator==(s));
+}
+
 std::ostream& operator<<(std::ostream& os, const Cake& s)
 {
 	os << s.entityId << " " << s.name << " " << s.ingredients << " " << s.price;

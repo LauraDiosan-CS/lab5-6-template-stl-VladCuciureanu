@@ -7,6 +7,8 @@ int main()
 {
 	TestDomain();
 	TestRepo();
-	//TestService();
+	TestService();
+	RepoSTLTemplate<Cake> mainRepo;
+	Service mainService(mainRepo, "cakes.txt");
 	return 0;
 }

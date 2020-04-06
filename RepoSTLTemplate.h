@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include <iostream>
 #include <algorithm>
 #include "Entity.h"
 
@@ -9,9 +8,19 @@ class RepoSTLTemplate
 {
 private:
 	std::vector<T> elem; // Objects vector.
+	unsigned int idCounter = 0;
+
 public:
-	RepoSTLTemplate(){} // Blank constructor
-	~RepoSTLTemplate(){} // Destructor
+
+	/*
+	Blank constructor
+	*/
+	RepoSTLTemplate(){}
+	
+	/*
+	Destructor
+	*/
+	~RepoSTLTemplate(){}
 
 	/*
 	Adds given object to the repo.
@@ -22,6 +31,7 @@ public:
 		if (findElemById(id) != this->elem.end())
 			return; // TODO: throw error due to entity id being already taken.
 		this->elem.push_back(t);
+		idCounter++;
 	}
 	
 	/*
@@ -85,4 +95,12 @@ public:
 		return this->elem.size();
 	}
 
+	/*
+	Returns free ID.
+	Out: free id.
+	*/
+	unsigned int getFreeId()
+	{
+		return this->idCounter;
+	}
 };
