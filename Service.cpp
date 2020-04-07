@@ -11,6 +11,7 @@ Service::Service(RepoSTLTemplate<Cake> repo, const char* fileName)
 	this->repo = repo;
 	this->fileName = new char[strlen(fileName) + 1];
 	strcpy_s(this->fileName, strlen(fileName) + 1, fileName);
+	this->load();
 }
 
 Service::~Service() {}
@@ -68,25 +69,30 @@ void Service::save()
 
 void Service::load()
 {
-	if (this->fileName == NULL)
-		return;
-	std::ifstream in(this->fileName);
-	int size;
-	in >> size;
-	for (int i = 0; i < size; i++)
-	{
-		int id;
-		in >> id;
-		char* name = new char[101];
-		char* ingredients = new char[101];
-		in.get();
-		in.getline(name, 101);
-		in.getline(ingredients, 101);
-		double price;
-		in >> price;
-		in.get();
-		Cake newCake = Cake(id, name, ingredients, price);
-		this->repo.addElem(newCake);
+	try {
+		if (this->fileName == NULL)
+			return;
+		std::ifstream in(this->fileName);
+		int size;
+		in >> size;
+		for (int i = 0; i < size; i++)
+		{
+			int id;
+			in >> id;
+			char* name = new char[101];
+			char* ingredients = new char[101];
+			in.get();
+			in.getline(name, 101);
+			in.getline(ingredients, 101);
+			double price;
+			in >> price;
+			in.get();
+			Cake newCake = Cake(id, name, ingredients, price);
+			this->repo.addElem(newCake);
+		}
+		in.close();
 	}
-	in.close();
+	catch (int e) {
+		std::cout << "Failed loading from file.\n";
+	};
 }
