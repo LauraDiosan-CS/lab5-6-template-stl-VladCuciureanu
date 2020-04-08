@@ -110,6 +110,6 @@ bool Cake:: operator!=(const Cake& s) {
 
 std::ostream& operator<<(std::ostream& os, const Cake& s)
 {
-	os << s.entityId << " " << s.name << " " << s.ingredients << " " << s.price;
+	os << s.entityId << " | " << s.name << " | " << s.ingredients << " | " << s.price;
 	return os;
 }

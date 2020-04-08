@@ -55,7 +55,7 @@ void TestService()
 	assert(service.getCakeById(4) == Cake(4, "Cupcake", "cup-sized stuff", 14));
 	service.deleteCake(4);
 	assert(service.getCakes().size() == 4);
-	assert(service.getCakeById(3) == Cake(3, "Cupcake", "cup-sized stuff", 14));
+	assert(service.getCakeById(3) != Cake(3, "Cupcake", "cup-sized stuff", 14));
 	service.updateCake(3, "Lavacake", "hotchoc", 350);
 	assert(service.getCakeById(3) == Cake(3, "Lavacake", "hotchoc", 350));
 }

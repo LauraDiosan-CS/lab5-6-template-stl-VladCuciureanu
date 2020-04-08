@@ -21,6 +21,7 @@ void Service::addCake(const char* name, const char* ingredients, double price)
 	unsigned int id = this->repo.getFreeId();
 	Cake newCake = Cake(id, name, ingredients, price);
 	this->repo.addElem(newCake);
+	this->save();
 }
 
 std::vector<Cake> Service::getCakes()
@@ -30,7 +31,10 @@ std::vector<Cake> Service::getCakes()
 
 Cake Service::getCakeById(unsigned int id)
 {
-	return *(this->repo.findElemById(id));
+	if (this->repo.findElemById(id) != this->repo.getEnd())
+		return *(this->repo.findElemById(id));
+	else
+		return Cake(-1, "", "", -1);
 }
 
 void Service::updateCake(unsigned int id, const char* newName = "", const char* newIngredients = "", const double newPrice = -1)
@@ -43,11 +47,13 @@ void Service::updateCake(unsigned int id, const char* newName = "", const char* 
 	if (newPrice != -1)
 		newCake.setPrice(newPrice);
 	this->repo.updateElem(id, newCake);
+	this->save();
 }
 
 void Service::deleteCake(unsigned int id)
 {
 	this->repo.delElem(id);
+	this->save();
 }
 
 void Service::save()
