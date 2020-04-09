@@ -64,6 +64,7 @@ public:
 	//Price setter
 	void setPrice(double price);
 	
+	//Parses string
 	void fromString(std::string info);
 
 	//Copy operator

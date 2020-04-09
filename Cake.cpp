@@ -115,7 +115,7 @@ std::ostream& operator<<(std::ostream& os, const Cake& s)
 }
 
 void Cake::fromString(std::string info)
-{
+{/*
 	int index1 = 0;
 	int index2 = 0;
 	while (info[index1] != '|')
@@ -134,5 +134,23 @@ void Cake::fromString(std::string info)
 	this->setIngredients(info.substr(index1, index2 - index1).c_str());
 	index1 = index2;
 	index1++;
-	this->setPrice(stod(info.substr(index1, info.length()-index1)));
+	this->setPrice(stod(info.substr(index1, info.length()-index1)));*/
+	int i1 = info.length()-1, i2 = info.length()-1;
+	while (info[i1] != '|')
+		i1--;
+	this->setPrice(stod(info.substr(i1+1, i2-i1+1)));
+	i1--;
+	i2 = i1;
+	while (info[i1] != '|')
+		i1--;
+	this->setIngredients(info.substr(i1 + 1, i2 - i1).c_str());
+	i1--;
+	i2 = i1;
+	while (info[i1] != '|')
+		i1--;
+	this->setName(info.substr(i1 + 1, i2 - i1).c_str());
+	i2 = i1;
+	i2--;
+	i1 = 0;
+	this->setId(stoi(info.substr(i1, i2-i1+1)));
 }

@@ -1,6 +1,7 @@
 #include "Tests.h"
 #include <assert.h>
 #include <iostream>
+#include "FileRepoSTLTemplate.h"
 
 void TestDomain()
 {
@@ -47,17 +48,17 @@ void TestRepo()
 
 void TestService()
 {
-	RepoSTLTemplate<Cake> repo;
+	FileRepoSTLTemplate<Cake> repo("test.txt");
 	Service service(&repo);
-	Cake c1(1, "Strudel", "oua, mere, habar n-am", 11);
-	Cake c2(2, "Eclair", "ceva bun", 12);
-	Cake c3(3, "Velvet", "red stuff", 13);
-	Cake c4(4, "Cupcake", "cup-sized stuff", 14);
-	service.addCake("Strudel", "oua, mere, habar n-am", 11);
-	service.addCake("Eclair", "ceva bun", 12);
-	service.addCake("Velvet", "red stuff", 13);
-	service.addCake("Cupcake", "cup-sized stuff", 14);
-	service.addCake("Cupcake", "cup-sized stuff", 14);
-	assert(service.getCakes().size() == 5);
-	service.addCake("Cupcake", "cup-sized stuff", 14);
+	service.addCake("p4", "vanilie", 11);
+	assert(service.getCakes().size() == 4);
+	service.deleteCake(3);
+	assert(service.getCakes().size() == 3);
+	service.updateCake(0, "", "zahar,faina,vanilie", 15);
+	std::map<std::string, double> results = service.avgIngredients();
+	assert(results["zahar"] == 17.5);
+	assert(results["unt"] == 10);
+	assert(results["vanilie"] == 15);
+	assert(results["faina"] == 12.5);
+	assert(results["ciocolata"] == 15);
 }

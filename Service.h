@@ -2,11 +2,14 @@
 #include "Cake.h"
 #include "RepoSTLTemplate.h"
 #include <vector>
+#include <set>
+#include <map>
 
 class Service
 {
 private:
 	RepoSTLTemplate<Cake>* repo;
+	std::set<std::string> ingredients;
 public:
 	/*
 	Blank constructor.
@@ -58,5 +61,15 @@ public:
 	In: cake id.
 	*/
 	void deleteCake(unsigned int id);
+
+	/*
+	Checks cakes for new ingredients.
+	*/
+	void refreshIngredients();
+
+	/*
+	Returns averages of all cakes using an ingredient, for all ingredients.
+	*/
+	std::map<std::string, double> avgIngredients();
 };
 

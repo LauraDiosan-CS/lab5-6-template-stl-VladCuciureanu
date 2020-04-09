@@ -18,6 +18,7 @@ void handleDisplayOptions()
 	std::cout << " 2. Display cakes\n";
 	std::cout << " 3. Update cakes\n";
 	std::cout << " 4. Delete cake\n";
+	std::cout << " 5. Show averages for ingredients\n";
 	std::cout << " 0. Exit app\n";
 }
 
@@ -69,6 +70,15 @@ void UserInterface::handleDeleteCake()
 	this->service.deleteCake(cakeId);
 }
 
+void UserInterface::handleDisplayAvg()
+{
+	std::map<std::string, double> results = this->service.avgIngredients();
+	for (std::map<std::string, double>::iterator it = results.begin(); it != results.end(); ++it)
+	{
+		std::cout << it->first << ": " << results[it->first] << '\n';
+	}
+}
+
 void UserInterface::startLoop()
 {
 	while (!this->exitTrigger)
@@ -91,6 +101,9 @@ void UserInterface::startLoop()
 			break;
 		case 4:
 			handleDeleteCake();
+			break;
+		case 5:
+			handleDisplayAvg();
 			break;
 		case 0:
 			this->exitTrigger = true;

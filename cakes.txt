@@ -1,4 +1,5 @@
-3
-0|p1|zahar,faina,vanilie|15
+4
+0|p1|zahar,faina|15
 1|p2|zahar,lapte,ciocolata|20
 2|p3|faina,unt,ciocolata|10
+3|p4|oua,mere,lapte|2

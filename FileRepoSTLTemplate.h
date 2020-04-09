@@ -31,24 +31,36 @@ public:
 	*/
 	~FileRepoSTLTemplate() {}
 
+	/*
+	Adds given object to repo.
+	*/
 	void addElem(T t)
 	{
 		RepoSTLTemplate<T>::addElem(t);
 		this->save();
 	}
 
+	/*
+	Updates object with given id with new values.
+	*/
 	void updateElem(unsigned int id, T update)
 	{
 		RepoSTLTemplate<T>::updateElem(id, update);
 		this->save();
 	}
 
+	/*
+	Deletes object with given id.
+	*/
 	void delElem(unsigned int id)
 	{
 		RepoSTLTemplate<T>::delElem(id);
 		this->save();
 	}
 
+	/*
+	Saves to file if filename provided in constructor.
+	*/
 	void save()
 	{
 		if (this->fileName == NULL)
@@ -62,6 +74,9 @@ public:
 		out.close();
 	}
 
+	/*
+	Loads from file if filename provided in constructor.
+	*/
 	void load()
 	{
 		try {

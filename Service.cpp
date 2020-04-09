@@ -49,3 +49,46 @@ void Service::deleteCake(unsigned int id)
 {
 	this->repo->delElem(id);
 }
+
+std::map<std::string, double> Service::avgIngredients()
+{
+	std::map<std::string, double> results;
+	std::map<std::string, int> counter;
+	this->refreshIngredients();
+	for (std::string ingredient : this->ingredients)
+	{
+		results[ingredient] = 0;
+		counter[ingredient] = 0;
+		for (Cake cake : this->repo->getAll())
+		{
+			if (std::string(cake.getIngredients()).find(ingredient) != std::string::npos)
+			{
+				results[ingredient]+=cake.getPrice();
+				counter[ingredient]++;
+			}
+		}
+		results[ingredient] /= counter[ingredient];
+	}
+	return results;
+}
+
+void Service::refreshIngredients()
+{
+	if (this->repo->getAll().size() == 0)
+		return;
+	std::vector<Cake> cakes = this->repo->getAll();
+	for (Cake c : cakes) {
+		int ingIndex = 0;
+		std::string ingString = std::string(c.getIngredients());
+		for (int i = 0; i < ingString.length(); i++)
+		{
+			if (ingString[i] == ',')
+			{
+				i++;
+				this->ingredients.insert(ingString.substr(ingIndex, i - ingIndex-1));
+				ingIndex = i;
+			}
+		}
+		this->ingredients.insert(ingString.substr(ingIndex, ingString.length() - ingIndex));
+	}
+}
