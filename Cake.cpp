@@ -110,6 +110,29 @@ bool Cake:: operator!=(const Cake& s) {
 
 std::ostream& operator<<(std::ostream& os, const Cake& s)
 {
-	os << s.entityId << " | " << s.name << " | " << s.ingredients << " | " << s.price;
+	os << s.entityId << "|" << s.name << "|" << s.ingredients << "|" << s.price;
 	return os;
+}
+
+void Cake::fromString(std::string info)
+{
+	int index1 = 0;
+	int index2 = 0;
+	while (info[index1] != '|')
+		index1++;
+	this->setId(stoi(info.substr(0, index1)));
+	index1++;
+	index2 = index1;
+	while (info[index2] != '|')
+		index2++;
+	this->setName(info.substr(index1, index2 - index1).c_str());
+	index1 = index2;
+	index1++;
+	index2 = index1;
+	while (info[index2] != '|')
+		index2++;
+	this->setIngredients(info.substr(index1, index2 - index1).c_str());
+	index1 = index2;
+	index1++;
+	this->setPrice(stod(info.substr(index1, info.length()-index1)));
 }

@@ -2,8 +2,7 @@
 
 UserInterface::UserInterface()
 {
-	RepoSTLTemplate<Cake> repo;
-	this->service = Service(repo, "");
+	this->service = Service();
 }
 
 UserInterface::UserInterface(const Service& service)

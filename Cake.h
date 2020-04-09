@@ -1,8 +1,11 @@
 #pragma once
 #include <cstddef>
-#include <string.h>
 #include <ostream>
 #include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <fstream>
 #include "Entity.h"
 
 class Cake : public Entity
@@ -61,6 +64,8 @@ public:
 	//Price setter
 	void setPrice(double price);
 	
+	void fromString(std::string info);
+
 	//Copy operator
 	Cake& operator=(const Cake& s);
 	

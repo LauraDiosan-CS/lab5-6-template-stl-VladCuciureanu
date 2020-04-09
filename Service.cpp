@@ -3,36 +3,32 @@
 
 Service::Service()
 {
-	this->repo = RepoSTLTemplate<Cake>();
+	this->repo = new RepoSTLTemplate<Cake>();
 }
 
-Service::Service(RepoSTLTemplate<Cake> repo, const char* fileName)
+Service::Service(RepoSTLTemplate<Cake>* repo)
 {
 	this->repo = repo;
-	this->fileName = new char[strlen(fileName) + 1];
-	strcpy_s(this->fileName, strlen(fileName) + 1, fileName);
-	this->load();
 }
 
 Service::~Service() {}
 
 void Service::addCake(const char* name, const char* ingredients, double price)
 {
-	unsigned int id = this->repo.getFreeId();
+	unsigned int id = this->repo->getFreeId();
 	Cake newCake = Cake(id, name, ingredients, price);
-	this->repo.addElem(newCake);
-	this->save();
+	this->repo->addElem(newCake);
 }
 
 std::vector<Cake> Service::getCakes()
 {
-	return this->repo.getAll();
+	return this->repo->getAll();
 }
 
 Cake Service::getCakeById(unsigned int id)
 {
-	if (this->repo.findElemById(id) != this->repo.getEnd())
-		return *(this->repo.findElemById(id));
+	if (this->repo->findElemById(id) != this->repo->getEnd())
+		return *(this->repo->findElemById(id));
 	else
 		return Cake(-1, "", "", -1);
 }
@@ -46,59 +42,10 @@ void Service::updateCake(unsigned int id, const char* newName = "", const char* 
 		newCake.setIngredients(newIngredients);
 	if (newPrice != -1)
 		newCake.setPrice(newPrice);
-	this->repo.updateElem(id, newCake);
-	this->save();
+	this->repo->updateElem(id, newCake);
 }
 
 void Service::deleteCake(unsigned int id)
 {
-	this->repo.delElem(id);
-	this->save();
-}
-
-void Service::save()
-{
-	if (this->fileName == NULL)
-		return;
-	std::ofstream out(this->fileName);
-	std::vector<Cake> cakes = this->repo.getAll();
-	out << cakes.size() << '\n';
-	for (Cake c : cakes)
-	{
-		out << c.getId() << '\n';
-		out << c.getName() << '\n';
-		out << c.getIngredients() << '\n';
-		out << c.getPrice() << '\n';
-	}
-	out.close();
-}
-
-void Service::load()
-{
-	try {
-		if (this->fileName == NULL)
-			return;
-		std::ifstream in(this->fileName);
-		int size;
-		in >> size;
-		for (int i = 0; i < size; i++)
-		{
-			int id;
-			in >> id;
-			char* name = new char[101];
-			char* ingredients = new char[101];
-			in.get();
-			in.getline(name, 101);
-			in.getline(ingredients, 101);
-			double price;
-			in >> price;
-			in.get();
-			Cake newCake = Cake(id, name, ingredients, price);
-			this->repo.addElem(newCake);
-		}
-		in.close();
-	}
-	catch (int e) {
-		std::cout << "Failed loading from file.\n";
-	};
+	this->repo->delElem(id);
 }

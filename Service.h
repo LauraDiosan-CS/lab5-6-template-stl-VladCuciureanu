@@ -6,8 +6,7 @@
 class Service
 {
 private:
-	RepoSTLTemplate<Cake> repo;
-	char* fileName = NULL;
+	RepoSTLTemplate<Cake>* repo;
 public:
 	/*
 	Blank constructor.
@@ -18,7 +17,7 @@ public:
 	Parameterized construtor.
 	In: provided repo.
 	*/
-	Service(RepoSTLTemplate<Cake> repo, const char* fileName);
+	Service(RepoSTLTemplate<Cake>* repo);
 	
 	/*
 	Destructor
@@ -59,15 +58,5 @@ public:
 	In: cake id.
 	*/
 	void deleteCake(unsigned int id);
-
-	/*
-	Serializes the repo into the file.
-	*/
-	void save();
-
-	/*
-	Loads the repo from file.
-	*/
-	void load();
 };
 

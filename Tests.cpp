@@ -48,14 +48,16 @@ void TestRepo()
 void TestService()
 {
 	RepoSTLTemplate<Cake> repo;
-	Service service(repo, "test.txt");
-	service.load();
+	Service service(&repo);
+	Cake c1(1, "Strudel", "oua, mere, habar n-am", 11);
+	Cake c2(2, "Eclair", "ceva bun", 12);
+	Cake c3(3, "Velvet", "red stuff", 13);
+	Cake c4(4, "Cupcake", "cup-sized stuff", 14);
+	service.addCake("Strudel", "oua, mere, habar n-am", 11);
+	service.addCake("Eclair", "ceva bun", 12);
+	service.addCake("Velvet", "red stuff", 13);
+	service.addCake("Cupcake", "cup-sized stuff", 14);
 	service.addCake("Cupcake", "cup-sized stuff", 14);
 	assert(service.getCakes().size() == 5);
-	assert(service.getCakeById(4) == Cake(4, "Cupcake", "cup-sized stuff", 14));
-	service.deleteCake(4);
-	assert(service.getCakes().size() == 4);
-	assert(service.getCakeById(3) != Cake(3, "Cupcake", "cup-sized stuff", 14));
-	service.updateCake(3, "Lavacake", "hotchoc", 350);
-	assert(service.getCakeById(3) == Cake(3, "Lavacake", "hotchoc", 350));
+	service.addCake("Cupcake", "cup-sized stuff", 14);
 }

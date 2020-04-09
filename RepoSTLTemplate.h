@@ -9,31 +9,30 @@ class RepoSTLTemplate
 private:
 	std::vector<T> elem; // Objects vector.
 	unsigned int idCounter = 0;
-
 public:
 
 	/*
 	Blank constructor
 	*/
-	RepoSTLTemplate(){}
-	
+	RepoSTLTemplate() {}
+
 	/*
 	Destructor
 	*/
-	~RepoSTLTemplate(){}
+	~RepoSTLTemplate() {}
 
 	/*
 	Adds given object to the repo.
 	In: given object.
 	*/
-	void addElem(T t) {
+	virtual void addElem(T t) {
 		int id = ((Entity)t).getId();
 		if (findElemById(id) != this->elem.end())
 			return; // TODO: throw error due to entity id being already taken.
 		this->elem.push_back(t);
 		idCounter++;
 	}
-	
+
 	/*
 	Returns the first iterator whose entity ID is equal to the one provided by user.
 	In: provided entity ID.
@@ -41,7 +40,7 @@ public:
 	*/
 	typename std::vector<T>::iterator findElemById(const int entityId) {
 		typename std::vector<T>::iterator it;
-		it = find_if(this->elem.begin(), this->elem.end(), [entityId](T t) { return ((Entity) t).getId() == entityId; });
+		it = find_if(this->elem.begin(), this->elem.end(), [entityId](T t) { return ((Entity)t).getId() == entityId; });
 		return it;
 	}
 
@@ -59,7 +58,7 @@ public:
 	In: given id
 	In: object with new values
 	*/
-	void updateElem(unsigned int id, T update)
+	virtual void updateElem(unsigned int id, T update)
 	{
 		typename std::vector<T>::iterator it;
 		it = findElemById(id);
@@ -70,7 +69,7 @@ public:
 	Deletes object with given id.
 	In: given id.
 	*/
-	void delElem(unsigned int id)
+	virtual void delElem(unsigned int id)
 	{
 		typename std::vector<T>::iterator it;
 		it = findElemById(id);
